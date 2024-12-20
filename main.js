@@ -1,21 +1,34 @@
 const sketchPad = document.querySelector("#sketch-pad");
-
-const row = document.createElement("div");
-const gridSquare = document.createElement("div");
-
-sketchPad.setAttribute("style", "display: flex; flex-direction: column;");
-row.setAttribute("style", "display: flex;");
-
-gridSquare.setAttribute(
+sketchPad.setAttribute(
   "style",
-  "width: 100px; height: 100px; background-color: green;"
+  "display: flex; flex-direction: column; gap: 10px;"
 );
 
-function addGridSquare() {
-  row.appendChild(gridSquare);
-  sketchPad.appendChild(row);
+function createGrid(e) {}
+
+sketchPad.addEventListener("gridCreated", (e) => {
+  for (i = 0; i < e.detail.gridSize; i++) {
+    const row = document.createElement("div");
+    row.setAttribute("style", "display: flex; gap: 10px;");
+    for (n = 0; n < e.detail.gridSize; n++) {
+      const gridSquare = document.createElement("div");
+      gridSquare.setAttribute(
+        "style",
+        "width: 100px; height: 100px; background-color: green;"
+      );
+      row.appendChild(gridSquare);
+    }
+    sketchPad.appendChild(row);
+  }
+});
+
+function changeGridSize(gridSize) {
+  const gridCreated = new CustomEvent("gridCreated", {
+    detail: {
+      gridSize: gridSize,
+    },
+  });
+  sketchPad.dispatchEvent(gridCreated);
 }
 
-for (i = 0; i < 5; i++) {
-  addGridSquare();
-}
+changeGridSize(2);
