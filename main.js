@@ -2,18 +2,20 @@ const sketchPad = document.querySelector("#sketch-pad");
 const colors = document.querySelector(".colors");
 const gridSizeInput = document.querySelector("#grid-size-input");
 
-let selectedColor = "red";
+//setting the grid size
+let gridSizeValue = 0;
 
-// let gridSizeValue = gridSize
+gridSizeInput.addEventListener("change", (e) => {
+  while (sketchPad.firstChild) {
+    sketchPad.removeChild(sketchPad.lastChild);
+  }
 
-function createGrid(e) {}
-
-sketchPad.addEventListener("gridCreated", (e) => {
-  for (i = 0; i < e.detail.gridSize; i++) {
+  gridSizeValue = Number(gridSizeInput.value);
+  for (i = 0; i < gridSizeValue; i++) {
     const row = document.createElement("div");
     row.classList.add("row");
 
-    for (n = 0; n < e.detail.gridSize; n++) {
+    for (n = 0; n < gridSizeValue; n++) {
       const gridSquare = document.createElement("div");
       gridSquare.classList.add("square");
 
@@ -22,6 +24,13 @@ sketchPad.addEventListener("gridCreated", (e) => {
     sketchPad.appendChild(row);
   }
 });
+
+//drawing
+let selectedColor = "red";
+
+function draw(e) {
+  e.target.setAttribute(`style`, `background-color: ${selectedColor};`);
+}
 
 sketchPad.addEventListener("mousedown", () => {
   sketchPad.addEventListener("mouseover", draw);
@@ -34,18 +43,3 @@ sketchPad.addEventListener("mouseup", () => {
 colors.addEventListener("click", (e) => {
   selectedColor = e.target.id;
 });
-
-function draw(e) {
-  e.target.setAttribute(`style`, `background-color: ${selectedColor};`);
-}
-
-function changeGridSize(gridSize) {
-  const gridCreated = new CustomEvent("gridCreated", {
-    detail: {
-      gridSize: gridSize,
-    },
-  });
-  sketchPad.dispatchEvent(gridCreated);
-}
-
-changeGridSize(20);
