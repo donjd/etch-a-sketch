@@ -8,18 +8,33 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Sketch Pad</h1>
-    <section id="sketch-pad"></section>
-    <aside>
-      <h2>Tool Palette</h2>
-      <h3>Grid Size</h3>
-      <input type="number" max="16" id="grid-size-input" />
-      <h3>Colors</h3>
-      <ul class="colors">
-        <li class="color red" id="red"></li>
-        <li class="color blue" id="blue"></li>
-        <li class="color yellow" id="yellow"></li>
-      </ul>
-    </aside>
+    <header>
+      <h1>Sketch Pad</h1>
+    </header>
+    <main>
+      <aside>
+        <h2>Tool Palette</h2>
+        <hr />
+        <h3>Grid Size</h3>
+        <input
+          type="number"
+          max="16"
+          id="grid-size-input"
+          placeholder="Max 16"
+        />
+        <hr />
+        <h3>Colors</h3>
+        <ul class="colors">
+          <li class="color red" id="red"></li>
+          <li class="color blue" id="blue"></li>
+          <li class="color yellow" id="yellow"></li>
+          <li class="color green" id="green"></li>
+          <li class="color magenta" id="magenta"></li>
+        </ul>
+        <hr />
+        <button id="reset-btn">Reset</button>
+      </aside>
+      <section id="sketch-pad"></section>
+    </main>
   </body>
 </html>
