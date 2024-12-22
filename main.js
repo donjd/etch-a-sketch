@@ -52,5 +52,26 @@ colors.addEventListener("click", (e) => {
 
 //resetting drawing
 resetBtn.addEventListener("click", () => {
-  gridSquare.setAttribute("style", "background-color: white;");
+  while (sketchPad.firstChild) {
+    sketchPad.removeChild(sketchPad.lastChild);
+  }
+
+  gridSizeValue = Number(gridSizeInput.value);
+  if (gridSizeValue > 16) {
+    gridSizeInput.textContent = 16;
+    alert("Reducing grid size to 16 x 16.");
+    gridSizeValue = 16;
+  }
+  for (i = 0; i < gridSizeValue; i++) {
+    const row = document.createElement("div");
+    row.classList.add("row");
+
+    for (n = 0; n < gridSizeValue; n++) {
+      const gridSquare = document.createElement("div");
+      gridSquare.classList.add("square");
+
+      row.appendChild(gridSquare);
+    }
+    sketchPad.appendChild(row);
+  }
 });
